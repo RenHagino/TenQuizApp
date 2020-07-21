@@ -1,8 +1,25 @@
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Nunito');
 
-// Variables
-@import 'variables';
+// ベースCSS
+@import './base/base.scss';
+@import './base/reset.scss';
+@import './base/variables.scss';
+
+//モジュール
+@import './module/content.scss';
+@import './module/etc.scss';
+@import './module/footer.scss';
+@import './module/header.scss';
+@import './module/main.scss';
+@import './module/nav.scss';
+@import './module/share.scss';
+@import './module/sidebar.scss';
+
+//セッティング
+@import './settings/config.scss';
+@import './settings/function.scss';
+
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
