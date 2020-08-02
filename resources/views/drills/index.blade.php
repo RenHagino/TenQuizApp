@@ -2,29 +2,24 @@
 
 @section('content')
     <div class="container">
-        <h2>{{ __('Drill List') }}</h2>
-        <div class="row">
+        <div class="row col-md-12 my-4">
+            <h2 class="col-md-4 text-center mx-auto">{{ __('Drill List') }}</h2>
+        </div>
 
+        <div class="row col-md-12">
             @foreach ($drills as $drill)
-
-            <div class="col-sm-6">
-                <div class="card">
+            <div class="col-md-6 mx-auto mt-4">
+                <div class="card col-md-12">
                     <div class="card-body">
                         <h3 class="card-title">{{ $drill->title }}</h3>
-                        <div class="row">
-                          <a href="{{ route('drills.lesson', $drill->id) }}" class="btn btn-primary col-md-4 py-2 mx-2">{{ __('Go Practice')  }}</a>
-                          <a href="{{ route('drills.edit', $drill->id) }}" dclass="btn btn-success col-md-3 py-2 mx-2">{{ __('Edit')  }}</a>
-                          <form action="{{ route('drills.delete', $drill->id) }}" method="post" class="col-md-4">
-                            @csrf
-                            <button class="btn btn-danger py-2" onclick='return confirm("削除しますか？");'>{{ __('Delete')  }}</button>
-                          </form>
+                        <div class="row col-md-12">
+                            <a href="{{ route('drills.lesson', $drill->id) }}" class="btn btn-primary col-md-5 py-2 mx-1">{{ __('Go Practice')  }}</a>
+                            <a href="{{route('drills.answer', $drill->id) }}" class="btn btn-warning col-md-5 py-2 mx-1">{{ __('See Answer')  }}</a>
                         </div>
                     </div>
                 </div>
             </div>
-
             @endforeach
-
         </div>
     </div>
 @endsection

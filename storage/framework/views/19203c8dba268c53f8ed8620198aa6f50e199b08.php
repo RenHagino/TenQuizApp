@@ -6,7 +6,7 @@
       <!--タイトルとジャンルー-->
       <div class="form-group row">
           <div class="col-md-12">
-            <label for="" class="col-md-12 text-md-center"><?php echo e(__('DrillTitle')); ?></label>
+            <label for="" class="col-md-12 text-md-center"><?php echo e(__('Drill Title')); ?></label>
             <div class="col-md-6 mx-auto">
               <input id="title" type="text" class="form-control <?php $__errorArgs = ['title'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
@@ -23,7 +23,7 @@ unset($__errorArgs, $__bag); ?>" name="title" placeholder="" autocomplete="title
       <!--カテゴリー-->
       <div class="form-group row">
         <div class="col-md-12">
-          <label for="" class="col-md-12 text-md-center"><?php echo e(__('DrillCategory')); ?></label>
+          <label for="" class="col-md-12 text-md-center"><?php echo e(__('Drill Category')); ?></label>
           <div class="col-md-6 mx-auto">
             <input id="title" type="text" class="form-control <?php $__errorArgs = ['title'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');

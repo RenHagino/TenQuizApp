@@ -1,3 +1,9 @@
+<?php
+    use Illuminate\Support\Facades\Auth; //追加
+    
+    // 現在ログインしているユーザーのID取得
+    $user_id = Auth::id();
+?>
 <!doctype html>
 <html lang="<?php echo e(str_replace('_', '-', app()->getLocale())); ?>">
 <head>
@@ -51,6 +57,9 @@
                                 </li>
                             <?php endif; ?>
                         <?php else: ?>
+                            <li class="nav-item">
+                                <a href="<?php echo e(route('mypage.show', $user_id)); ?>"class="nav-link">マイページへ</a>
+                            </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     <?php echo e(Auth::user()->name); ?> <span class="caret"></span>

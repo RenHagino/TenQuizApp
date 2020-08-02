@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Drill;
+use Illuminate\Support\Facades\Auth; 
 
 //クラス
 class DrillsController extends Controller
@@ -41,12 +42,62 @@ class DrillsController extends Controller
 
         //モデル(Drill)を使ってDBに登録する値をセット
         $drill = new Drill;
+        
+        //Authクラスを使ってユーザーidを入手
+        $user_id = Auth::id();
 
         // fillメソッドを使って一気にDBに登録する値をセット
-        $drill->fill($request->all())->save();
+        //$drill->fill($request->all())->save();
+        
+        //１つ１つ入れるか
+        $drill->user_id = $user_id;
+        $drill->title = $request->title;
+        $drill->category_name = $request->category_name;
+
+        $drill->a_method0 = $request->a_method0;
+        $drill->problem0 = $request->problem0;
+        $drill->answer0 = $request->answer0;
+
+        $drill->a_method1 = $request->a_method1;
+        $drill->problem1 = $request->problem1;
+        $drill->answer1 = $request->answer1;
+
+        $drill->a_method2 = $request->a_method2;
+        $drill->problem2 = $request->problem2;
+        $drill->answer2 = $request->answer2;
+
+        $drill->a_method3 = $request->a_method3;
+        $drill->problem3 = $request->problem3;
+        $drill->answer3 = $request->answer3;
+        
+        $drill->a_method4 = $request->a_method4;
+        $drill->problem4 = $request->problem4;
+        $drill->answer4 = $request->answer4;
+
+        $drill->a_method5 = $request->a_method5;
+        $drill->problem5 = $request->problem5;
+        $drill->answer5 = $request->answer5;
+
+        $drill->a_method6 = $request->a_method6;
+        $drill->problem6 = $request->problem6;
+        $drill->answer6 = $request->answer6;
+        
+        $drill->a_method7 = $request->a_method7;
+        $drill->problem7 = $request->problem7;
+        $drill->answer7 = $request->answer7;
+        
+        $drill->a_method8 = $request->a_method8;
+        $drill->problem8 = $request->problem8;
+        $drill->answer8 = $request->answer8;
+        
+        $drill->a_method9 = $request->a_method9;
+        $drill->problem9 = $request->problem9;
+        $drill->answer9 = $request->answer9;
+
+        $drill->save();
 
         //登録後に登録完了のフラッシュメッセージを入れてリダイレクトする
-        return redirect('/drills/new')->with('flash_message',__('Drill is Registered'));
+        return redirect('/mypage')->with('flash_message',__('Drill is Registered'));
     }
 
     //ドリル一覧取得(全ユーザー)
@@ -56,9 +107,8 @@ class DrillsController extends Controller
         return view('drills.index', ['drills' => $drills]);
     }
 
-    //ドリル
+    //ドリル練習
     public function lesson($id){
-
         // GETパラメータが数字かどうかをチェックする
         if(!ctype_digit($id)){
             return redirect('/drills/new')->with('flash_message', __('Invalid operation was performed.'));
@@ -96,9 +146,22 @@ class DrillsController extends Controller
         $drill->fill($request->all())->save();
 
         //編集が完了したら Todo:test =>日本語でフラッシュメッセージが表示されるかどうか
-        return redirect('/drills')->with('flash_message',__('Drill is Updated !!'));
+        return redirect('/mydrill')->with('flash_message',__('Drill is Updated !!'));
     }
 
+    //ドリルの答え確認メソッド
+    public function answer($id){
+          // GETパラメータが数字かどうかをチェックする
+        if(!ctype_digit($id)){
+            return redirect('/drills/new')->with('flash_message', __('Invalid operation was performed.'));
+        }
+        //Getパラメータがあればそれを元に編集するドリルを決定
+        $drill = Drill::find($id);
+        
+        //答えが確認できる画面をreturnする
+        return view('drills.answer', ['drill' => $drill]);
+
+    }
     //ドリル削除メソッド
     public function delete($id){
         // GETパラメータが数字かどうかをチェックする

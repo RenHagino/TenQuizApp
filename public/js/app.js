@@ -2043,27 +2043,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['title', 'drill', 'categoryName'],
   data: function data() {
     return {
       //サンプルタイマー用
       min: 10,
-      sec: 5,
-      isStop: false,
+      sec: 1,
       timerObj: null,
-      countDownNum: 5,
       // カウントダウン用
+      countDownNum: 5,
+      //現在の問題数、正解数、不正解数
+      currentProblemNum: 0,
       correctNum: 0,
       missNum: 0,
-      wpm: 0,
-      isStarted: false,
-      isEnded: false,
+      //カウントダウン、スタート、ストップ、終了、失敗の各フラグ
       isCountDown: false,
-      isFailed: false,
-      currentProblemNum: 0,
-      userAnswer: ''
+      isStarted: false,
+      isStop: false,
+      isEnded: false,
+      isFailed: false
     };
   },
   computed: {
@@ -2085,7 +2084,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     // レッスンのスコア
     lessonScore: function lessonScore() {
-      return this.correctNum * 50 - this.missNum * 25 + this.timerScore; //return (this.correctNum * 10) * (1 - this.missNum / (this.correctNum * 2))
+      return this.correctNum * 50 - this.missNum * 25 + this.timerScore;
     },
     //タイマースコア(残り時間によるスコア)
     timerScore: function timerScore() {
@@ -2109,21 +2108,20 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     //サンプルタイマー用メソッド
     count: function count() {
-      if (this.sec <= 0 && this.min >= 1) {
-        this.min--;
-        this.sec = 59;
-      } else if (this.sec <= 0 && this.min <= 0) {
-        this.complete();
-      } else {
-        this.sec--;
+      if (this.isStop === false) {
+        if (this.sec <= 0 && this.min >= 1) {
+          this.min--;
+          this.sec = 59;
+        } else if (this.sec <= 0 && this.min <= 0) {
+          this.complete();
+        } else {
+          this.sec--;
+        }
       }
     },
     //レッスンスリスタートメソッド
     lessonRestart: function lessonRestart() {
       var self = this;
-      this.timerObj = setInterval(function () {
-        self.count();
-      }, 1000);
       this.isStop = false;
     },
     //レッスン一時停止メソッド todo :テスト
@@ -2137,10 +2135,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     //ドリルスタート
     doDrill: function doDrill() {
-      this.isStarted = true;
       this.countDown();
     },
-    //スタートまでカウントダウンメソッド
+    //5秒カウントダウンメソッド
     countDown: function countDown() {
       var _this = this;
 
@@ -2153,6 +2150,9 @@ __webpack_require__.r(__webpack_exports__);
         if (_this.countDownNum <= 0) {
           _this.isCountDown = false;
           _this.isStarted = true;
+
+          _this.count();
+
           return;
         }
       }, 1000);
@@ -2185,15 +2185,19 @@ __webpack_require__.r(__webpack_exports__);
     },
     //レッスンリトライメソッド
     retryLesson: function retryLesson() {
+      this.isStop = false;
       this.isEnded = false;
+      this.isCountDown = true;
       this.countDownNum = 5;
       this.currentProblemNum = 0;
       this.correctNum = 0;
       this.missNum = 0;
       this.sec = 0;
       this.min = 10;
+      window.clearInterval(timer);
+      this.formatTime = null;
+      clearInterval(this.timerObj);
       this.timerObj = null;
-      this.isStarted = true;
       this.countDown();
     }
   }
@@ -37916,12 +37920,7 @@ var render = function() {
                           "button",
                           {
                             staticClass: "btn btn-primary ",
-                            on: {
-                              click: function($event) {
-                                _vm.doDrill()
-                                _vm.lessonRestart()
-                              }
-                            }
+                            on: { click: _vm.doDrill }
                           },
                           [
                             _vm._v(
@@ -38061,14 +38060,6 @@ var render = function() {
                     _c("div", { staticClass: "row" }, [
                       _c("div", { staticClass: "col-md-6 mx-auto" }, [
                         _c("p", [
-                          _vm._v("今回の残り時間 : " + _vm._s(_vm.formatTime))
-                        ])
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "row" }, [
-                      _c("div", { staticClass: "col-md-6 mx-auto" }, [
-                        _c("p", [
                           _vm._v(
                             "今回のレッスンの正解数 : " +
                               _vm._s(_vm.correctNum) +
@@ -38082,10 +38073,10 @@ var render = function() {
                     _c("div", { staticClass: "row" }, [
                       _c("div", { staticClass: "col-md-6 mx-auto" }, [
                         _c(
-                          "button",
+                          "a",
                           {
                             staticClass: "btn btn-secondary my-3",
-                            on: { click: _vm.retryLesson }
+                            attrs: { href: "/drills" }
                           },
                           [
                             _vm._v(

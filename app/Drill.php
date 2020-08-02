@@ -10,6 +10,7 @@ class Drill extends Model
 {
     // fillableを使うと
     protected $fillable = [
+        'user_id',
         'title',
         'category_name',
         'problem0',

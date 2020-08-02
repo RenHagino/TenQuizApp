@@ -15,6 +15,7 @@ class CreateDrillsTable extends Migration
     {
         Schema::create('drills', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('user_id');
             $table->string('title')->nullable();
             $table->string('category_name')->nullable();
             $table->string('a_method0')->nullable();
