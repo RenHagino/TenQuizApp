@@ -25,22 +25,23 @@
 # ***ローカル開発環境、使用言語一覧***<br>
  1.HTML5<br>
  2.CSS3(Bootstrap)<br>
- 5.PHP ver7.3.7<br>
- 6.Laravel ver7.7.1
- 6.MySQL ver2.4.41<br>
- 7.node v13.9.0<br>
+ 5.PHP ver 7.3.7<br>
+ 6.Laravel ver 7.7.1
+ 6.MySQL ver 2.4.41<br>
+ 7.node ver 11.0.0<br>
+ 8.npm ver 6.14.4
  
 # ***本番環境***<br>
  1.HTML5<br>
  2.CSS3(Bootstrap)<br>
- 5.PHP ver7.3.7<br>
- 6.Laravel ver7.7.1<br>
- 6.MySQL ver5.4<br>
- 7.node v13.9.0<br>
+ 5.PHP ver 7.3.7<br>
+ 6.Laravel ver 7.7.1<br>
+ 6.MySQL ver 5.4<br>
+ 7.node ver 13.9.0<br>
+ 8.npm ver 6.13.7
  
- ***パッケージ関連***<br>
+
  1.npm ver6.13.4<br>
- 2.gulp ver4.0.2<br>
  
 
 # ***各画面の機能***<br>
